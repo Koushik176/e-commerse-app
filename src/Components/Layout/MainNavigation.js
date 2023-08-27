@@ -24,7 +24,7 @@ const MainNavigation = () => {
         </nav>
         <div className={classes.cartButton}>
           <button>
-            cart<span>(0)</span>
+            cart<span className={classes.badge}>0</span>
           </button>
         </div>
       </header>
