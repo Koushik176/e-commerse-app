@@ -1,18 +1,21 @@
 import React from "react";
 import { Button, Col, Container, Row } from "react-bootstrap";
 
+import classes from "./HomePageContent.module.css";
+
 const HomePageContent = () => {
   return (
     <div>
-      <header className="bg-secondary p-5 d-flex flex-column align-items-center mb-3">
-        <Button variant="dark" className="">
+      <header className={classes.header}>
+        <Button variant="dark" className={classes.latestalbum}>
           Get our Latest Album
         </Button>
-        <Button variant="dark" className="">
-          play Button
+        <Button variant="dark" className={classes.playbtn}>
+          &#9654;
         </Button>
       </header>
-      <Container style={{ width: 1000 }}>
+      <Container className={classes.container}>
+      <h2>TOURS</h2>
         <Row className="border-bottom border-dark p-2">
           <Col className="d-flex justify-content-center">JUL 16</Col>
           <Col className="d-flex justify-content-center">DETROIT,MI</Col>
