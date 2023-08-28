@@ -1,8 +1,18 @@
-import React from "react";
+import React, { useContext } from "react";
 import classes from "./MainNavigation.module.css";
 import { Link } from "react-router-dom";
+import CartShowContext from "../../Context-store/Cart-Show/cartshow-context";
+import CartContext from "../../Context-store/cart-context";
 
 const MainNavigation = () => {
+  const cartShowCtx = useContext(CartShowContext);
+  const cartCtx = useContext(CartContext);
+
+  let quantity = 0;
+
+  cartCtx.items.forEach((item) => {
+    quantity = quantity + Number(item.quantity);
+  });
   return (
     <React.Fragment>
       <header className={classes.header}>
@@ -23,8 +33,8 @@ const MainNavigation = () => {
           </ul>
         </nav>
         <div className={classes.cartButton}>
-          <button>
-            cart<span className={classes.badge}>0</span>
+          <button onClick={cartShowCtx.showCart}>
+            cart<span className={classes.badge}>{quantity}</span>
           </button>
         </div>
       </header>
