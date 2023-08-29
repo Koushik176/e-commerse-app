@@ -4,6 +4,7 @@ import CartContext from "./cart-context";
 const CartProvider = (props) => {
   const [items, updateItems] = useState([]);
   const [totalAmount, updateTotalAmount] = useState(0);
+  console.log(items);
 
   const addItemToCartHandler = (item) => {
     updateItems((prevItems) => {
@@ -30,16 +31,44 @@ const CartProvider = (props) => {
     });
   };
 
-  const removeItemFromCartHandler = (item) => {};
+  const removeItemFromCartHandler = (item) => {
+    updateTotalAmount((prevTotalAmount) => {
+      return prevTotalAmount - item.price;
+    });
+
+    updateItems((prevItems) => {
+      const existingItemIndex = prevItems.findIndex(
+        (prevItem) => prevItem.id === item.id
+      );
+
+      const existingCartItem = prevItems[existingItemIndex];
+
+      let updatedItems;
+
+      if (Number(existingCartItem.quantity) === 1) {
+        updatedItems = prevItems.filter(
+          (filterItem) => filterItem.id !== existingCartItem.id
+        );
+        return updatedItems;
+      } else {
+        const updatedItem = {
+          ...existingCartItem,
+          quantity: Number(existingCartItem.quantity) - 1,
+        };
+        updatedItems = [...prevItems];
+        updatedItems[existingItemIndex] = updatedItem;
+        return updatedItems;
+      }
+    });
+  };
 
   const totalAmountUpdateHandler = (amount) => {
     updateTotalAmount((prevTotalAmount) => {
-        return prevTotalAmount + amount;
-    })
+      return prevTotalAmount + amount;
+    });
   };
 
-  const removeAllItemsHandler = () => {
-  };
+  const removeAllItemsHandler = () => {};
 
   const cartContext = {
     items: items,

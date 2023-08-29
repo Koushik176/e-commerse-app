@@ -1,9 +1,10 @@
 import React, { useContext } from "react";
-import { Row, Col, Offcanvas, Container, Button } from "react-bootstrap";
+import { Row, Col, Offcanvas, Container } from "react-bootstrap";
 import CartContext from "../../Context-store/cart-context";
 import CartShowContext from "../../Context-store/Cart-Show/cartshow-context";
 
-import classes from './Cart.module.css';
+import classes from "./Cart.module.css";
+import CartItem from "./CartItem";
 
 const Cart = (props) => {
   const cartShowCtx = useContext(CartShowContext);
@@ -13,9 +14,17 @@ const Cart = (props) => {
     cartCtx.items = [];
     cartCtx.totalAmount = 0;
   };
+
+  const cartItemRemoveHandler = (item) => {
+    cartCtx.removeItem(item);
+  };
   return (
     <div>
-      <Offcanvas show={cartShowCtx.cartOpen} onHide={cartShowCtx.hideCart} placement="end">
+      <Offcanvas
+        show={cartShowCtx.cartOpen}
+        onHide={cartShowCtx.hideCart}
+        placement="end"
+      >
         <Offcanvas.Header className="d-flex justify-content-center" closeButton>
           <Offcanvas.Title className="d-flex fs-1">CART</Offcanvas.Title>
         </Offcanvas.Header>
@@ -35,28 +44,21 @@ const Cart = (props) => {
             </Col>
           </Row>
           {cartCtx.items.map((item) => (
-            <Row key={item.title}>
-              <Col className="d-flex justify-content-center">
-                <span>{item.title}</span>
-              </Col>
-              <Col className="d-flex justify-content-center">
-                <span>{item.price.toFixed(2)}</span>
-              </Col>
-              <Col className="d-flex justify-content-center">
-                <span>{item.quantity}</span>
-              </Col>
-              <Col>
-                <Button variant="dark" size="sm" className="m-1">
-                  -
-                </Button>
-              </Col>
-            </Row>
+            <CartItem
+              key={item.title}
+              title={item.title}
+              price={item.price}
+              quantity={item.quantity}
+              onRemove={cartItemRemoveHandler.bind(null, item)}
+            />
           ))}
           <Container className="d-flex justify-content-around p-4">
             <span>Total Amount</span>
-            <span>{cartCtx.totalAmount}</span>
+            <span>{`Rs. ${cartCtx.totalAmount.toFixed(2)}`}</span>
           </Container>
-          <button className={classes.button} onClick={emptyItemsHandler}>PURCHASE</button>
+          <button className={classes.button} onClick={emptyItemsHandler}>
+            PURCHASE
+          </button>
         </Offcanvas.Body>
       </Offcanvas>
     </div>
