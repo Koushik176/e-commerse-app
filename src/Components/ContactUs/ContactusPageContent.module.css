@@ -7,6 +7,12 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+.formcontainer p {
+    text-align: center;
+    font-weight: bolder;
+    font-size: large;
+}
+
 .formcontainer label {
   display: block;
   margin-bottom: 6px;
