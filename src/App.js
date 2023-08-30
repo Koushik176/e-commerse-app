@@ -20,17 +20,17 @@ function App() {
             <Route path="/" exact>
               <HomePage />
             </Route>
-            <Route path="/about">
-              <AboutPage />
-            </Route>
             <Route path="/products">
               <StorePage />
             </Route>
-            <Route path="/contactus">
-              <ContactUsPage />
+            <Route path="/about">
+              <AboutPage />
             </Route>
             <Route path="/auth">
               <AuthPage />
+            </Route>
+            <Route path="/contactus">
+              <ContactUsPage />
             </Route>
           </Switch>
         </Layout>

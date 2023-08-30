@@ -17,7 +17,7 @@ const MainNavigation = () => {
     <React.Fragment>
       <header className={classes.header}>
         <nav className={`${classes.nav} ${classes.header}`}>
-          <ul className={classes.ulall}>
+          <ul>
             <li>
               <Link to="/">Home</Link>
             </li>
@@ -28,12 +28,10 @@ const MainNavigation = () => {
               <Link to="/about">About</Link>
             </li>
             <li>
-              <Link to="/contactus">Contact Us</Link>
-            </li>
-          </ul>
-          <ul className={classes.ullogin}>
-            <li>
               <Link to="/auth">Login</Link>
+            </li>
+            <li>
+              <Link to="/contactus">Contact Us</Link>
             </li>
           </ul>
         </nav>
