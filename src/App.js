@@ -9,6 +9,7 @@ import StorePage from "./Pages/StorePage";
 import CartShowProvider from "./Context-store/Cart-Show/CartShowProvider";
 import CartProvider from "./Context-store/CartProvider";
 import ContactUsPage from "./Pages/ContactUsPage";
+import AuthPage from "./Pages/AuthPage";
 
 function App() {
   return (
@@ -27,6 +28,9 @@ function App() {
             </Route>
             <Route path="/contactus">
               <ContactUsPage />
+            </Route>
+            <Route path="/auth">
+              <AuthPage />
             </Route>
           </Switch>
         </Layout>
