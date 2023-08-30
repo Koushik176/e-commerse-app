@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 
 import classes from "./AuthForm.module.css";
 import AuthContext from "../../Context-store/Auth-Context/auth-context";
+import EmailContext from "../../Context-store/Auth-Context/email-context";
 
 const AuthForm = () => {
   const history = useHistory();
@@ -10,6 +11,7 @@ const AuthForm = () => {
   const passwordInputRef = useRef();
 
   const authCtx = useContext(AuthContext);
+  const emailCtx = useContext(EmailContext);
 
   const [isLogin, setIsLogin] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
@@ -57,6 +59,7 @@ const AuthForm = () => {
       }
     }).then(data => {
       authCtx.login(data.idToken);
+      emailCtx.login(data.email);
       history.replace('/products');
     }).catch(err => {
       alert(err.message);
