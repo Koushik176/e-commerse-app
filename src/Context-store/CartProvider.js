@@ -4,7 +4,6 @@ import CartContext from "./cart-context";
 const CartProvider = (props) => {
   const [items, updateItems] = useState([]);
   const [totalAmount, updateTotalAmount] = useState(0);
-  console.log(items);
 
   const addItemToCartHandler = (item) => {
     updateItems((prevItems) => {

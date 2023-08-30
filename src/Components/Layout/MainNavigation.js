@@ -28,7 +28,7 @@ const MainNavigation = () => {
               <Link to="/about">About</Link>
             </li>
             <li>
-              <Link to="/contact-us">Contact Us</Link>
+              <Link to="/contactus">Contact Us</Link>
             </li>
           </ul>
         </nav>
