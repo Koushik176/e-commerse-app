@@ -4,6 +4,7 @@ const EmailContext = React.createContext({
     email: '',
     login: (email) => {},
     logout: () => {},
+    emailUpdateHandler: (email) => {},
 });
 
 export const EmailContextProvider = (props) => {
@@ -11,8 +12,9 @@ export const EmailContextProvider = (props) => {
     const [email, setEmail] = useState(initialEmail);
 
     const loginHandler = (email) => {
-        setEmail(email);
-        localStorage.setItem('email', email);
+        const updatedEmail = email.replace(/[@.]/g,"");
+        setEmail(updatedEmail);
+        localStorage.setItem('email', updatedEmail);
         setTimeout(() => {
             logoutHandler();
             localStorage.removeItem('email');

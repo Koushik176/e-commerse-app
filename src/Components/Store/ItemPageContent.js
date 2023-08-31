@@ -4,40 +4,28 @@ import CartContext from "../../Context-store/cart-context";
 import { Link } from "react-router-dom";
 import EmailContext from "../../Context-store/Auth-Context/email-context";
 import axios from "axios";
-import AuthContext from "../../Context-store/Auth-Context/auth-context";
 
 const Item = (props) => {
   const cartCtx = useContext(CartContext);
-  const authCtx = useContext(AuthContext);
   const emailCtx = useContext(EmailContext);
 
-  const updatedEmail = emailCtx.email.replace(/[.@]/g, "");
-
-  const addItemToCart = (event) => {
+  const addItemToCart = async (event) => {
     event.preventDefault();
     const quantity = 1;
     cartCtx.addItem({ ...props.item, quantity: quantity, id: props.title });
     const cartPrice = props.item.price * quantity;
     cartCtx.updateTotalAmount(cartPrice);
-    const url = `https://crudcrud.com/Dashboard/3f8488f350d341918a1ba072eb79c6d0/cart${updatedEmail}`;
-    fetch(url, {
-      method: "POST",
-      body: JSON.stringify({
+    try {
+      const response = await axios.post(`https://crudcrud.com/api/e3e9f3b778384ace8e1ffc9496034378/cart${emailCtx.email}`,
+      {
         ...props.item,
         quantity: quantity,
         id: props.title,
-      }),
-      headers: {
-        "Access-Control-Allow-Headers": "Origin",
-        "Content-type": "application/json",
-      },
-    })
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((error) => {
-        console.log(error);
       });
+      console.log(response.data);
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <section>

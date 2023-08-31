@@ -15,12 +15,12 @@ const CartItem = (props) => {
       </Col>
       <Col>
         <Button
-          variant="dark"
+          variant="danger"
           size="sm"
           className="m-1"
           onClick={props.onRemove}
         >
-          -
+          REMOVE
         </Button>
       </Col>
     </Row>

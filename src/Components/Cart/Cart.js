@@ -1,14 +1,29 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Row, Col, Offcanvas, Container } from "react-bootstrap";
 import CartContext from "../../Context-store/cart-context";
 import CartShowContext from "../../Context-store/Cart-Show/cartshow-context";
 
 import classes from "./Cart.module.css";
 import CartItem from "./CartItem";
+import axios from 'axios';
+import EmailContext from "../../Context-store/Auth-Context/email-context";
 
 const Cart = (props) => {
   const cartShowCtx = useContext(CartShowContext);
   const cartCtx = useContext(CartContext);
+  const emailCtx = useContext(EmailContext);
+  const [crudItems, setCrudItems] = useState([]);
+
+
+  useEffect(() => {
+    axios.get(`https://crudcrud.com/api/e3e9f3b778384ace8e1ffc9496034378/cart${emailCtx.email}`)
+    .then(response => {
+      setCrudItems(response.data);
+    })
+    .catch(error => {
+      console.log(error);
+    })
+  }, [crudItems, emailCtx.email]);
 
   const emptyItemsHandler = () => {
     cartCtx.items = [];
@@ -17,7 +32,15 @@ const Cart = (props) => {
 
   const cartItemRemoveHandler = (item) => {
     cartCtx.removeItem(item);
+    axios.delete(`https://crudcrud.com/api/e3e9f3b778384ace8e1ffc9496034378/cart${emailCtx.email}/${item._id}`)
+    .then(response => {
+      console.log('Item deleted:', response.data);
+    })
+    .catch(error => {
+      console.error("error deleting item:", error);
+    })
   };
+
   return (
     <div>
       <Offcanvas
@@ -43,9 +66,9 @@ const Cart = (props) => {
               <span> </span>
             </Col>
           </Row>
-          {cartCtx.items.map((item) => (
+          {crudItems.map((item) => (
             <CartItem
-              key={item.title}
+              key={item._id}
               title={item.title}
               price={item.price}
               quantity={item.quantity}

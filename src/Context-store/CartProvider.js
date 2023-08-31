@@ -13,17 +13,9 @@ const CartProvider = (props) => {
 
       const exisitingCartItem = prevItems[exisitingItemIndex];
 
-      let updatedItem;
-      let updatedItems;
-
       if (exisitingCartItem) {
-        updatedItem = {
-          ...exisitingCartItem,
-          quantity: Number(exisitingCartItem.quantity) + Number(item.quantity),
-        };
-        updatedItems = [...prevItems];
-        updatedItems[exisitingItemIndex] = updatedItem;
-        return updatedItems;
+        alert("This item has already added to cart");
+        return prevItems;
       } else {
         return [item, ...prevItems];
       }
@@ -48,14 +40,6 @@ const CartProvider = (props) => {
         updatedItems = prevItems.filter(
           (filterItem) => filterItem.id !== existingCartItem.id
         );
-        return updatedItems;
-      } else {
-        const updatedItem = {
-          ...existingCartItem,
-          quantity: Number(existingCartItem.quantity) - 1,
-        };
-        updatedItems = [...prevItems];
-        updatedItems[existingItemIndex] = updatedItem;
         return updatedItems;
       }
     });
