@@ -16,7 +16,7 @@ const Cart = (props) => {
 
 
   useEffect(() => {
-    axios.get(`https://crudcrud.com/api/e3e9f3b778384ace8e1ffc9496034378/cart${emailCtx.email}`)
+    axios.get(`https://crudcrud.com/api/9ad64d6494a94767867b8c5ffb2ec539/cart${emailCtx.email}`)
     .then(response => {
       setCrudItems(response.data);
     })
@@ -25,14 +25,14 @@ const Cart = (props) => {
     })
   }, [crudItems, emailCtx.email]);
 
-  const emptyItemsHandler = () => {
-    cartCtx.items = [];
-    cartCtx.totalAmount = 0;
+  const emptyCartHandler = () => {
+    cartCtx.removeAllItems();
+    setCrudItems([]);
   };
 
   const cartItemRemoveHandler = (item) => {
     cartCtx.removeItem(item);
-    axios.delete(`https://crudcrud.com/api/e3e9f3b778384ace8e1ffc9496034378/cart${emailCtx.email}/${item._id}`)
+    axios.delete(`https://crudcrud.com/api/9ad64d6494a94767867b8c5ffb2ec539/cart${emailCtx.email}/${item._id}`)
     .then(response => {
       console.log('Item deleted:', response.data);
     })
@@ -79,7 +79,7 @@ const Cart = (props) => {
             <span>Total Amount</span>
             <span>{`Rs. ${cartCtx.totalAmount.toFixed(2)}`}</span>
           </Container>
-          <button className={classes.button} onClick={emptyItemsHandler}>
+          <button className={classes.button} onClick={emptyCartHandler}>
             PURCHASE
           </button>
         </Offcanvas.Body>

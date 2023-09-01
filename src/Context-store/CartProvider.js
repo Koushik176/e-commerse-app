@@ -51,7 +51,10 @@ const CartProvider = (props) => {
     });
   };
 
-  const removeAllItemsHandler = () => {};
+  const removeAllItemsHandler = () => {
+    updateItems([]);
+    updateTotalAmount(0);
+  };
 
   const cartContext = {
     items: items,

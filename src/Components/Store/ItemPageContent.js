@@ -16,7 +16,7 @@ const Item = (props) => {
     const cartPrice = props.item.price * quantity;
     cartCtx.updateTotalAmount(cartPrice);
     try {
-      const response = await axios.post(`https://crudcrud.com/api/e3e9f3b778384ace8e1ffc9496034378/cart${emailCtx.email}`,
+      const response = await axios.post(`https://crudcrud.com/api/9ad64d6494a94767867b8c5ffb2ec539/cart${emailCtx.email}`,
       {
         ...props.item,
         quantity: quantity,
