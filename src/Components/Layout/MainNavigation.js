@@ -1,18 +1,22 @@
 import React, { useContext } from "react";
 import classes from "./MainNavigation.module.css";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import CartShowContext from "../../Context-store/Cart-Show/cartshow-context";
 import CartContext from "../../Context-store/cart-context";
 
 const MainNavigation = () => {
   const cartShowCtx = useContext(CartShowContext);
   const cartCtx = useContext(CartContext);
+  const location = useLocation();
 
   let quantity = 0;
 
   cartCtx.items.forEach((item) => {
     quantity = quantity + Number(item.quantity);
   });
+
+  const isStorePage = location.pathname === "/products";
+
   return (
     <React.Fragment>
       <header className={classes.header}>
@@ -35,11 +39,13 @@ const MainNavigation = () => {
             </li>
           </ul>
         </nav>
-        <div className={classes.cartButton}>
-          <button onClick={cartShowCtx.showCart}>
-            cart<span className={classes.badge}>{quantity}</span>
-          </button>
-        </div>
+        {isStorePage && (
+          <div className={classes.cartButton}>
+            <button onClick={cartShowCtx.showCart}>
+              cart<span className={classes.badge}>{quantity}</span>
+            </button>
+          </div>
+        )}
       </header>
       <h1 className={classes.h1}>The Generics</h1>
     </React.Fragment>
